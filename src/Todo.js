@@ -11,30 +11,29 @@ const Todo = (props) => {
 
     const editItem = props.editItem;
 
+    const editEventHandler = (e) => {
+        setItem({...item, title: e.target.value});
+    };
+
+    const checkboxEventHandler = (e) => {
+        item.done = e.target.checked;
+        editItem(item);
+    }
+
     // deleteEventHandler 작성
     const deleteEventHandler = () => {
         deleteItem(item);
     };
-
-    const editEventHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
-    }
-
-    const checkboxEventHandler = (e) => {
-        item.done = e.target.checked;
-        editItem();
-    }
 
     // turnOffReadOnly 함수 작성
     const turnOffReadOnly = () => {
         setReadOnly(false);
     };
 
-    // turnOnReadOnly 함수 작성
     const turnOnReadOnly = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && readOnly === false) {
             setReadOnly(true);
+            editItem(item);
         }
     };
 
